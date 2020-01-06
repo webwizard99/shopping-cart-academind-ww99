@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
+const keys = require('./keys');
 
 const { Client } = require('pg');
 
 const client = new Client({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: keys.database_url,
   ssl: true
 });
 
