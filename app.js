@@ -9,10 +9,11 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 
-const indexRouter = require('./routes/index');
-
 const app = express();
 require('./config/passport');
+
+// index routes
+const indexRouter = require('./routes/index');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' }));

@@ -12,7 +12,7 @@ passport.deserializeUser((id, done) => {
     .catch(err => console.log(err));
 });
 
-passport.use('local.signup', new LocalStrategy({
+passport.use('local_signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallBack: true
