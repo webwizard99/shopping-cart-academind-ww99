@@ -12,11 +12,11 @@ passport.deserializeUser((id, done) => {
     .catch(err => console.log(err));
 });
 
-passport.use('local_signup', new LocalStrategy({
+passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallBack: true
-}, (req, email, password, done) => {
+}, (email, password, done) => {
   console.log('local.signup strategy invoked...');
   User.findAll({ where: { email: email }})
     .then(user => {
