@@ -55,7 +55,7 @@ User.prototype.correctPassword = function(enteredPassword) {
   return User.encryptPassword(enteredPassword, this.salt()) === this.password()
 }
 
-User.beforeCreate(setSaltAndPassword);
-User.beforeUpdate(setSaltAndPassword);
+User.beforeCreate((user) => setSaltAndPassword(user));
+User.beforeUpdate((user) => setSaltAndPassword(user));
 
 module.exports = User;
