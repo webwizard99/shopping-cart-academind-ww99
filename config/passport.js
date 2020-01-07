@@ -8,7 +8,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   User.findAll({ where: { id: id }})
-    .then(user => done(err, user))
+    .then(user => done(null, user))
     .catch(err => console.log(err));
 });
 
