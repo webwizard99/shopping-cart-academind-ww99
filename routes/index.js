@@ -9,7 +9,18 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
   Product.findAll()
-    .then(products => res.render('shop/index', { title: 'Bork bork', products: products }))
+    .then(products => {
+      let productChunks = [];
+      const chunkSize = 3;
+      for (let i = 0; i < products.length; i += chunkSize) {
+        let term = i + chunkSize;
+        if (term > products.length -1) {
+          term = products.length -1;
+        }
+        productChunks.push(products.slice(i, term));
+      }
+      res.render('shop/index', { title: 'Bork bork', products: productChunks })
+    })
     .catch(err => console.log(err));
 });
 
