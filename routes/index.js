@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
       for (let i = 0; i < products.length; i += chunkSize) {
         let term = i + chunkSize;
         if (term > products.length -1) {
-          term = products.length -1;
+          term = products.length;
         }
         productChunks.push(products.slice(i, term));
       }
