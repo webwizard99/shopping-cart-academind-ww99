@@ -1,7 +1,9 @@
 const express = require('express');
 const Sequelize = require('sequelize');
-const Product = require('../models/Product');
 const csrf = require('csurf');
+const passport = require('passport');
+
+const Product = require('../models/Product');
 
 const csrfProtection = csrf();
 
@@ -34,13 +36,13 @@ router.get('/user/signup', (req, res, next) => {
 
 router.post('/user/signup', (req, res, next) => {
   passport.authenticate('local.signup', {
-    successRedirect: '/profile',
-    failureRedirect: '/signup',
+    successRedirect: 'user/profile',
+    failureRedirect: 'user/signup',
     failureFlash: true
   })
 });
 
-router.get('/profile', (req, res, next) => {
+router.get('/user/profile', (req, res, next) => {
   res.render('user/profile')
 })
 
