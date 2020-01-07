@@ -4,11 +4,11 @@ const Product = require('../models/Product');
 const csrf = require('csurf');
 
 const csrfProtection = csrf();
-router.use(csrfProtection);
 
 var router = express.Router();
 
-// const productSeeder = require('../seed/ProductSeeder');
+// mount CSRF module
+router.use(csrfProtection);
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -31,11 +31,5 @@ router.get('/', function(req, res, next) {
 router.get('/user/signup', (req, res, next) => {
   res.render('user/signup', { csrfToken: req.csrfToken() })
 })
-
-router.get('/seed_products', (req, res) => {
-  res.status(200).send('products seeded');
-  // productSeeder();
-  
-});
 
 module.exports = router;
