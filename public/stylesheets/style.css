@@ -15,3 +15,8 @@
 .card {
   margin: 4px;
 }
+
+.card:hover {
+  border: 1px solid #1f1f1f;
+  background-color: rgb(220, 222, 255);
+}
