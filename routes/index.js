@@ -1,11 +1,11 @@
-var express = require('express');
+const express = require('express');
 const Sequelize = require('sequelize');
 const Product = require('../models/Product');
 const csrf = require('csurf');
 
 const csrfProtection = csrf();
 
-var router = express.Router();
+const router = express.Router();
 
 // mount CSRF module
 router.use(csrfProtection);
@@ -33,7 +33,15 @@ router.get('/user/signup', (req, res, next) => {
 });
 
 router.post('/user/signup', (req, res, next) => {
-  res.redirect('/');
+  passport.authenticate('local.signup', {
+    successRedirect: '/profile',
+    failureRedirect: '/signup',
+    failureFlash: true
+  })
+});
+
+router.get('/profile', (req, res, next) => {
+  res.render('user/profile')
 })
 
 module.exports = router;

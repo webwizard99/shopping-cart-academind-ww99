@@ -7,7 +7,10 @@
     "dev": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "~1.4.4",
+    "crypto": "^1.0.1",
     "csurf": "^1.10.0",
     "debug": "~2.6.9",
     "express": "~4.16.1",
@@ -16,6 +19,8 @@
     "hbs": "~4.0.4",
     "http-errors": "~1.6.3",
     "morgan": "~1.9.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
     "pg": "^7.17.0",
     "sequelize": "^5.21.3"
   },
