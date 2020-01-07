@@ -9,8 +9,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/seed_products', (req, res) => {
-  productSeeder();
   res.status(200).send('products seeded');
+  // productSeeder();
+  
 });
 
 module.exports = router;
