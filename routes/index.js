@@ -1,6 +1,10 @@
 var express = require('express');
 const Sequelize = require('sequelize');
 const Product = require('../models/Product');
+const csrf = require('csurf');
+
+const csrfProtection = csrf();
+router.use(csrfProtection);
 
 var router = express.Router();
 
@@ -23,6 +27,10 @@ router.get('/', function(req, res, next) {
     })
     .catch(err => console.log(err));
 });
+
+router.get('/user/signup', (req, res, next) => {
+  res.render('user/signup', { csrfToken: req.csrfToken() })
+})
 
 router.get('/seed_products', (req, res) => {
   res.status(200).send('products seeded');
