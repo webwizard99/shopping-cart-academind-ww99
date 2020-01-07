@@ -17,8 +17,10 @@ passport.use('local.signup', new LocalStrategy({
   passwordField: 'password',
   passReqToCallBack: true
 }, (req, email, password, done) => {
+  console.log('local.signup strategy invoked...');
   User.findAll({ where: { email: email }})
     .then(user => {
+      console.log(user);
       if (user) {
         return done(null, false, {message: 'Email is already in use.'})
       } else {
