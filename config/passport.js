@@ -16,7 +16,7 @@ passport.use(new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallBack: true
-}, (email, password, done) => {
+}, (req, email, password, done) => {
   console.log('local.signup strategy invoked...');
   User.findAll({ where: { email: email }})
     .then(user => {
