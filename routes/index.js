@@ -7,13 +7,16 @@ const Product = require('../models/Product');
 
 const csrfProtection = csrf();
 
-const router = express.Router();
+// const router = express.Router();
+
+// attempt app importation to see how it effects code
+module.exports = (app) => {
 
 // mount CSRF module
-router.use(csrfProtection);
+app.use(csrfProtection);
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
   Product.findAll()
     .then(products => {
       let productChunks = [];
@@ -30,21 +33,23 @@ router.get('/', function(req, res, next) {
     .catch(err => console.log(err));
 });
 
-router.get('/user/signup', (req, res, next) => {
+app.get('/user/signup', (req, res, next) => {
   res.render('user/signup', { csrfToken: req.csrfToken() })
 });
 
-router.post('/user/signup', (req, res, next) => {
+app.post('/user/signup', (req, res, next) => {
   console.log('user/signup post route reached...');
   passport.authenticate('local', {
     successRedirect: 'user/profile',
     failureRedirect: 'user/signup',
     failureFlash: true
   });
+  console.log('after passport.authenticate in user/signup');
 });
 
-router.get('/user/profile', (req, res, next) => {
+app.get('/user/profile', (req, res, next) => {
   res.render('user/profile')
 })
 
-module.exports = router;
+}
+// module.exports = router;

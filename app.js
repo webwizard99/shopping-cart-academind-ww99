@@ -12,8 +12,14 @@ const flash = require('connect-flash');
 const app = express();
 require('./config/passport');
 
+// Test DB
+db.authenticate()
+  .then(() => console.log('Database connected...'))
+  .catch(err => console.log('Error: ' + err));
+
 // index routes
-const indexRouter = require('./routes/index');
+// const indexRouter = require('./routes/index');
+require('./routes/index')(app);
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' }));
@@ -32,10 +38,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
-// Test DB
-db.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch(err => console.log('Error: ' + err));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
