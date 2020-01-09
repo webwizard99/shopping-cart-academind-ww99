@@ -8,7 +8,7 @@ const bCrypt = require('bcrypt-nodejs');
 passport.use('local-signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
-  passReqToCallBack: true
+  passReqToCallback: true
 }, (req, email, password, done) => {
   console.log('local.signup strategy invoked...');
   const generateHash = (pword) => {
