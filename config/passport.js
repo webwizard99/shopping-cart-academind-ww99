@@ -1,7 +1,7 @@
 const passport = require('passport');
 const User = require('../models/User');
 const LocalStrategy = require('passport-local').Strategy;
-
+const bCrypt = require('bcrypt-nodejs');
 
 passport.use(new LocalStrategy({
   usernameField: 'email',
@@ -9,20 +9,33 @@ passport.use(new LocalStrategy({
   passReqToCallBack: true
 }, (req, email, password, done) => {
   console.log('local.signup strategy invoked...');
-  User.findOne({ where: { email: email }})
+  const generateHash = (pword) => {
+    return bCrypt.hashSync(pword, bCrypt.genSaltSync(8), null);
+  }
+  
+  User.findOne({ 
+    where: { email: email 
+    }
+  })
     .then(user => {
       console.log(user);
       if (user) {
         return done(null, false, {message: 'Email is already in use.'})
       } else {
+        const userPassword = generateHash(password);
+        
         User.create({
-          email,
-          password
+          email: email,
+          password: userPassword
         }).then(
-          user => {
-            return done(null, user);
-          }
-        )
+          (user, created) => {
+            if (!user) {
+              return done(null, false)
+            }
+            if (user) {
+              return done(null, user);
+            }
+          })
         .catch(err => {return done(err)})
       }
       

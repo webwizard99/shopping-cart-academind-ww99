@@ -8,6 +8,7 @@ const db = require('./config/database');
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const bodyParser = require('body-parser');
 
 const app = express();
 require('./config/passport');
@@ -18,8 +19,7 @@ db.authenticate()
   .catch(err => console.log('Error: ' + err));
 
 // index routes
-// const indexRouter = require('./routes/index');
-
+const indexRouter = require('./routes/index');
 
 // view engine setup
 app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs' }));
@@ -30,14 +30,18 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 app.use(session({ secret: 'bipbop323', resave: false, saveUninitialized: false }));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// app.use('/', indexRouter);
-require('./routes/index')(app);
+app.use('/', indexRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
