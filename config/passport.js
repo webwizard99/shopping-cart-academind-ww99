@@ -3,7 +3,9 @@ const User = require('../models/User');
 const LocalStrategy = require('passport-local').Strategy;
 const bCrypt = require('bcrypt-nodejs');
 
-passport.use(new LocalStrategy({
+
+
+passport.use('local-signup', new LocalStrategy({
   usernameField: 'email',
   passwordField: 'password',
   passReqToCallBack: true
